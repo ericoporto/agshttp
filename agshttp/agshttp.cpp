@@ -8,6 +8,8 @@
 #define LINUX_VERSION 1
 #endif
 
+#define HTTP_IMPLEMENTATION
+
 #include <stdio.h>
 #include "http.h" 
 #include <cstring>
@@ -100,7 +102,7 @@ httpRequest * agshttp_Get(char * url )
 {
 	httpRequest* pagsRequestHandler = new httpRequest;
 	
-    pagsRequestHandler->requestHandler = (void*) http_get( url, NULL );
+    pagsRequestHandler->requestHandler = (void*) http_get(const_cast<char*>(url), NULL );
     update_httpRequest(pagsRequestHandler);
     
     engine->RegisterManagedObject(agsHttpStructname, &httpRO);
@@ -113,7 +115,7 @@ httpRequest * agshttp_Post(char * url, char * data)
 	
 	httpRequest* pagsRequestHandler = new httpRequest;
 	
-    pagsRequestHandler->requestHandler = (void*) http_post( url, data, data_size, NULL  );
+    pagsRequestHandler->requestHandler = (void*) http_post(const_cast<char*>(url), data, data_size, NULL  );
     update_httpRequest(pagsRequestHandler);
     
     engine->RegisterManagedObject(agsHttpStructname, &httpRO);
@@ -127,6 +129,7 @@ int agshttp_Process(httpRequest* agsReqHandler)
 		update_httpRequest(agsReqHandler);
 		return temp_status;
     }
+	return -1;
 }
 
 void agshttp_Release(httpRequest* agsReqHandler)
