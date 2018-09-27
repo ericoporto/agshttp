@@ -8,3 +8,18 @@
 
 ags plugin wrapper for Mattias Gustavsson tiny http.h lib, for http (non https) Post and Get requests.
 
+## how does it work
+
+*warning: the wants to be like below but is not like below yet!*
+
+    httpRequest requestHandler = agshttp.Get( "http://www.mattiasgustavsson.com/http_test.txt" );
+    
+    while(requestHandler.Process() == eHttpStatusPending){
+      wait(1);
+    }
+    
+    Display(requestHandler.ResponseData);
+    
+    requestHandler.Release()
+    
+    
