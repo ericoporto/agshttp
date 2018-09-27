@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -g -O2 -Wall -fPIC -D_REENTRANT  
+CXXFLAGS = -std=c++0x -g -O2 -Wall -fPIC -D_REENTRANT  
 LD = g++
 LDFLAGS = -L/usr/lib/x86_64-linux-gnu 
 DEFINES = 

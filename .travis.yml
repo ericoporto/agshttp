@@ -18,7 +18,7 @@ script:
 - pushd agshttp/
 - wget https://raw.githubusercontent.com/adventuregamestudio/ags/v.3.4.1.12/Engine/plugin/agsplugin.h
 - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then clang++ agshttp.cpp -Wall -dynamiclib -o libagshttp.dylib   ; fi
-- if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then ./build.sh    ; fi
+- if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then make    ; fi
 - popd
 
 deploy:

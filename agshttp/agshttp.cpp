@@ -122,7 +122,7 @@ httpRequest * agshttp_Post(char * url, char * data)
     return pagsRequestHandler;
 }
 
-int agshttp_Process(httpRequest* agsReqHandler)
+int httpRequest_Process(httpRequest* agsReqHandler)
 {	
     if(agsReqHandler != NULL && agsReqHandler->requestHandler != NULL){
 		int temp_status = http_process((http_t*) agsReqHandler->requestHandler);
@@ -132,7 +132,7 @@ int agshttp_Process(httpRequest* agsReqHandler)
 	return -1;
 }
 
-void agshttp_Release(httpRequest* agsReqHandler)
+void httpRequest_Release(httpRequest* agsReqHandler)
 {
     if(agsReqHandler != NULL){
         http_release((http_t*) agsReqHandler->requestHandler);
@@ -151,8 +151,8 @@ void AGS_EngineStartup(IAGSEngine *lpEngine)
 
     engine->RegisterScriptFunction("agshttp::Get", (void*)&agshttp_Get);
     engine->RegisterScriptFunction("agshttp::Post", (void*)&agshttp_Post);
-    engine->RegisterScriptFunction("agshttp::Process", (void*)&agshttp_Process);
-    engine->RegisterScriptFunction("agshttp::Release", (void*)&agshttp_Release);
+    engine->RegisterScriptFunction("httpRequest::Process", (void*)&httpRequest_Process);
+    engine->RegisterScriptFunction("httpRequest::Release", (void*)&httpRequest_Release);
 
     engine->AddManagedObjectReader(agsHttpStructname, &httpROR);
 }
@@ -221,12 +221,6 @@ const char* scriptHeader =
 "readonly String ContentType;\r\n"
 "readonly void * requestHandler;\r\n"
 "\r\n"
-"/// Do a Get http request and returns a handler\r\n"
-"import static httpRequest* Get (String url); // $AUTOCOMPLETESTATICONLY$\r\n"
-"\r\n"
-"/// Do a Post http request and returns a handler\r\n"
-"import static httpRequest* Post (String url,String data); // $AUTOCOMPLETESTATICONLY$\r\n"
-"\r\n"
 "/// Poll a request handler for updates\r\n"
 "import static int Process (httpRequest* agsReqHandler); // $AUTOCOMPLETESTATICONLY$\r\n"
 "\r\n"
@@ -234,6 +228,12 @@ const char* scriptHeader =
 "import static void Release (httpRequest* agsReqHandler); // $AUTOCOMPLETESTATICONLY$\r\n"
 "\r\n"
 "};\r\n"
+"\r\n"
+"/// Do a Get http request and returns a handler\r\n"
+"import static httpRequest* Get (String url); // $AUTOCOMPLETESTATICONLY$\r\n"
+"\r\n"
+"/// Do a Post http request and returns a handler\r\n"
+"import static httpRequest* Post (String url,String data); // $AUTOCOMPLETESTATICONLY$\r\n"
 "\r\n"
   ;
 
