@@ -19,7 +19,7 @@
 // ags stuff
 IAGSEditor *editor; // Editor interface
 IAGSEngine* engine; // Engine interface
-char const* agsHttpStructname = "httpThread";
+char const* agsHttpStructname = "httpRequest";
 
 int32 dummydata = 0;
 
@@ -211,6 +211,7 @@ const char* scriptHeader =
 "  eHttpStatusCompleted = 0,\r\n"
 "  eHttpStatusFailed = 2\r\n"
 "};\r\n"
+"\r\n"
 "managed struct httpRequest {\r\n"
 "readonly int ResponseSize;\r\n"
 "readonly int StatusCode;\r\n"
@@ -218,7 +219,22 @@ const char* scriptHeader =
 "readonly String ResponseData;\r\n"
 "readonly String ReasonPhrase;\r\n"
 "readonly String ContentType;\r\n"
+"readonly void * requestHandler;\r\n"
+"\r\n"
+"/// Do a Get http request and returns a handler\r\n"
+"import static httpRequest* Get (String url); // $AUTOCOMPLETESTATICONLY$\r\n"
+"\r\n"
+"/// Do a Post http request and returns a handler\r\n"
+"import static httpRequest* Post (String url,String data); // $AUTOCOMPLETESTATICONLY$\r\n"
+"\r\n"
+"/// Poll a request handler for updates\r\n"
+"import static int Process (httpRequest* agsReqHandler); // $AUTOCOMPLETESTATICONLY$\r\n"
+"\r\n"
+"/// Release a request handler\r\n"
+"import static void Release (httpRequest* agsReqHandler); // $AUTOCOMPLETESTATICONLY$\r\n"
+"\r\n"
 "};\r\n"
+"\r\n"
   ;
 
 int  AGS_EditorStartup(IAGSEditor* lpEditor)
