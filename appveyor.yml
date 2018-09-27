@@ -1,0 +1,34 @@
+version: "{build}"
+image: Visual Studio 2017
+platform:
+- x86
+
+configuration:
+- Release
+
+branches:
+  only:
+    - master
+
+before_build:
+  - ps: $Env:PLATFORM_TOOLSET="v141"
+
+build:
+  project: agshttp.sln
+  parallel: true
+  verbosity: minimal
+
+artifacts:
+- path: $(configuration)\agshttp.dll
+  name: agshttp.dll
+
+deploy:
+- provider: GitHub
+  auth_token:
+    secure: 0FI9i4tjFfPJYT2ModUijy23Pe3iYp6bizTQR5A4b7uUUwTu7YrniPtcq7JljWG/
+  artifact: agshttp.dll
+  draft: false
+  prerelease: false
+  on:
+    branch: master                 # release from master branch only
+    appveyor_repo_tag: true        # deploy on tag push only
