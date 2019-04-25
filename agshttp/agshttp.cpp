@@ -182,9 +182,9 @@ void AGS_EngineStartup(IAGSEngine *lpEngine)
     engine->RegisterScriptFunction("httpRequest::Process", (void*)&httpRequest_Process);
     engine->RegisterScriptFunction("httpRequest::Release", (void*)&httpRequest_Release);
 	
-    engine->RegisterScriptFunction("httpRequest::Get_ResponseData", reinterpret_cast<void *>&httpRequest_Get_ResponseData);
-    engine->RegisterScriptFunction("httpRequest::Get_ReasonPhrase", reinterpret_cast<void *>&httpRequest_Get_ReasonPhrase);
-    engine->RegisterScriptFunction("httpRequest::Get_ContentType", reinterpret_cast<void *>&httpRequest_Get_ContentType);
+    engine->RegisterScriptFunction("httpRequest::Get_ResponseData", reinterpret_cast<void *>(httpRequest_Get_ResponseData));
+    engine->RegisterScriptFunction("httpRequest::Get_ReasonPhrase", reinterpret_cast<void *>(httpRequest_Get_ReasonPhrase));
+    engine->RegisterScriptFunction("httpRequest::Get_ContentType", reinterpret_cast<void *>(httpRequest_Get_ContentType));
 
     engine->AddManagedObjectReader(agsHttpStructname, &httpROR);
 }
