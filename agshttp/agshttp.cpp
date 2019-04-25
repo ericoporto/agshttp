@@ -142,7 +142,7 @@ void httpRequest_Release(httpRequest* agsReqHandler)
 }
 
 
-char * httpRequest_Get_ResponseData(httpRequest* agsReqHandler)
+const char * httpRequest_Get_ResponseData(httpRequest* agsReqHandler)
 {
     if(agsReqHandler != NULL){
 	http_t * requestHandler = (http_t*) &(agsReqHandler->requestHandler);
@@ -150,7 +150,7 @@ char * httpRequest_Get_ResponseData(httpRequest* agsReqHandler)
     }
 }
 
-char * httpRequest_Get_ReasonPhrase(httpRequest* agsReqHandler)
+const char * httpRequest_Get_ReasonPhrase(httpRequest* agsReqHandler)
 {
     if(agsReqHandler != NULL){
 	http_t * requestHandler = (http_t*) &(agsReqHandler->requestHandler);
@@ -158,7 +158,7 @@ char * httpRequest_Get_ReasonPhrase(httpRequest* agsReqHandler)
     }
 }
 
-char * httpRequest_Get_ContentType(httpRequest* agsReqHandler)
+const char * httpRequest_Get_ContentType(httpRequest* agsReqHandler)
 {
     if(agsReqHandler != NULL){
 	http_t * requestHandler = (http_t*) &(agsReqHandler->requestHandler);
@@ -182,9 +182,9 @@ void AGS_EngineStartup(IAGSEngine *lpEngine)
     engine->RegisterScriptFunction("httpRequest::Process", (void*)&httpRequest_Process);
     engine->RegisterScriptFunction("httpRequest::Release", (void*)&httpRequest_Release);
 	
-    engine->RegisterScriptFunction("httpRequest::Get_ResponseData", (void*)&httpRequest_Get_ResponseData);
-    engine->RegisterScriptFunction("httpRequest::Get_ReasonPhrase", (void*)&httpRequest_Get_ReasonPhrase);
-    engine->RegisterScriptFunction("httpRequest::Get_ContentType", (void*)&httpRequest_Get_ContentType);
+    engine->RegisterScriptFunction("httpRequest::Get_ResponseData", reinterpret_cast<void *>&httpRequest_Get_ResponseData);
+    engine->RegisterScriptFunction("httpRequest::Get_ReasonPhrase", reinterpret_cast<void *>&httpRequest_Get_ReasonPhrase);
+    engine->RegisterScriptFunction("httpRequest::Get_ContentType", reinterpret_cast<void *>&httpRequest_Get_ContentType);
 
     engine->AddManagedObjectReader(agsHttpStructname, &httpROR);
 }
