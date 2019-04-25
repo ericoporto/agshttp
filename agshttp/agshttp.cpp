@@ -27,9 +27,9 @@ struct httpRequest {
     int ResponseSize;
     int StatusCode;
     int RequestState;
-    const char * ResponseData;
-    const char * ReasonPhrase;
-    const char * ContentType;
+   // const char * ResponseData;
+   // const char * ReasonPhrase;
+   // const char * ContentType;
     void * requestHandler;
 };
 
@@ -182,9 +182,9 @@ void AGS_EngineStartup(IAGSEngine *lpEngine)
     engine->RegisterScriptFunction("httpRequest::Process", (void*)&httpRequest_Process);
     engine->RegisterScriptFunction("httpRequest::Release", (void*)&httpRequest_Release);
 	
-    engine->RegisterScriptFunction("httpRequest::Get_ResponseData", reinterpret_cast<void *>(httpRequest_Get_ResponseData));
-    engine->RegisterScriptFunction("httpRequest::Get_ReasonPhrase", reinterpret_cast<void *>(httpRequest_Get_ReasonPhrase));
-    engine->RegisterScriptFunction("httpRequest::Get_ContentType", reinterpret_cast<void *>(httpRequest_Get_ContentType));
+    engine->RegisterScriptFunction("httpRequest::get_ResponseData", reinterpret_cast<void *>(httpRequest_Get_ResponseData));
+    engine->RegisterScriptFunction("httpRequest::get_ReasonPhrase", reinterpret_cast<void *>(httpRequest_Get_ReasonPhrase));
+    engine->RegisterScriptFunction("httpRequest::get_ContentType", reinterpret_cast<void *>(httpRequest_Get_ContentType));
 
     engine->AddManagedObjectReader(agsHttpStructname, &httpROR);
 }
@@ -251,19 +251,19 @@ const char* scriptHeader =
 "readonly void requestHandler;\r\n"
 "\r\n"
 "/// Poll a request handler for updates\r\n"
-"import static int Process (httpRequest* agsReqHandler); // $AUTOCOMPLETESTATICONLY$\r\n"
+"import static int Process (); // $AUTOCOMPLETESTATICONLY$\r\n"
 "\r\n"
 "/// Release a request handler\r\n"
-"import static void Release (httpRequest* agsReqHandler); // $AUTOCOMPLETESTATICONLY$\r\n"
+"import static void Release (); // $AUTOCOMPLETESTATICONLY$\r\n"
 	
 "/// Get Response Data r\r\n"
-"import static String Get_ResponseData (httpRequest* agsReqHandler); \r\n"
+"import static String get_ResponseData (); \r\n"
 	
 "/// Get Reason Phrase\r\n"
-"import static String Get_ReasonPhrase (httpRequest* agsReqHandler); \r\n"
+"import static String get_ReasonPhrase (); \r\n"
 	
 "/// Get Content Type \r\n"
-"import static String Get_ContentType (httpRequest* agsReqHandler); \r\n"
+"import static String get_ContentType (); \r\n"
 "\r\n"
 "};\r\n"
 "\r\n"
