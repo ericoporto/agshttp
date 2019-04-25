@@ -6,10 +6,6 @@ platform:
 configuration:
 - Release
 
-branches:
-  only:
-    - master
-
 before_build:
   - ps: $Env:PLATFORM_TOOLSET="v141"
 
