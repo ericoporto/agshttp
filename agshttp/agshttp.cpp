@@ -267,7 +267,7 @@ const char* scriptHeader =
 "\r\n"
 "};\r\n"
 "\r\n"
-"struct agshttp {\r\n"
+"managed struct agshttp {\r\n"
 "\r\n"
 "/// Do a Get http request and returns a handler\r\n"
 "import static httpRequest* Get (String url); // $AUTOCOMPLETESTATICONLY$\r\n"
