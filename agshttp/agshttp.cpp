@@ -145,6 +145,7 @@ void httpRequest_Release(httpRequest* agsReqHandler)
 char * httpRequest_Get_ResponseData(httpRequest* agsReqHandler)
 {
     if(agsReqHandler != NULL){
+	http_t * requestHandler = (http_t*) &(aRequestStruct->requestHandler);
         return engine->CreateScriptString((char const*)requestHandler->response_data);
     }
 }
@@ -152,6 +153,7 @@ char * httpRequest_Get_ResponseData(httpRequest* agsReqHandler)
 char * httpRequest_Get_ReasonPhrase(httpRequest* agsReqHandler)
 {
     if(agsReqHandler != NULL){
+	http_t * requestHandler = (http_t*) &(aRequestStruct->requestHandler);
         return engine->CreateScriptString(requestHandler->reason_phrase);
     }
 }
@@ -159,6 +161,7 @@ char * httpRequest_Get_ReasonPhrase(httpRequest* agsReqHandler)
 char * httpRequest_Get_ContentType(httpRequest* agsReqHandler)
 {
     if(agsReqHandler != NULL){
+	http_t * requestHandler = (http_t*) &(aRequestStruct->requestHandler);
         return engine->CreateScriptString(requestHandler->content_type);
     }
 }
@@ -245,6 +248,7 @@ const char* scriptHeader =
 "readonly int ResponseSize;\r\n"
 "readonly int StatusCode;\r\n"
 "readonly int RequestState;\r\n"
+"readonly void requestHandler;\r\n"
 "\r\n"
 "/// Poll a request handler for updates\r\n"
 "import static int Process (httpRequest* agsReqHandler); // $AUTOCOMPLETESTATICONLY$\r\n"
