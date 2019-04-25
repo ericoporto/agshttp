@@ -145,7 +145,7 @@ void httpRequest_Release(httpRequest* agsReqHandler)
 char * httpRequest_Get_ResponseData(httpRequest* agsReqHandler)
 {
     if(agsReqHandler != NULL){
-	http_t * requestHandler = (http_t*) &(aRequestStruct->requestHandler);
+	http_t * requestHandler = (http_t*) &(agsReqHandler->requestHandler);
         return engine->CreateScriptString((char const*)requestHandler->response_data);
     }
 }
@@ -153,7 +153,7 @@ char * httpRequest_Get_ResponseData(httpRequest* agsReqHandler)
 char * httpRequest_Get_ReasonPhrase(httpRequest* agsReqHandler)
 {
     if(agsReqHandler != NULL){
-	http_t * requestHandler = (http_t*) &(aRequestStruct->requestHandler);
+	http_t * requestHandler = (http_t*) &(agsReqHandler->requestHandler);
         return engine->CreateScriptString(requestHandler->reason_phrase);
     }
 }
@@ -161,7 +161,7 @@ char * httpRequest_Get_ReasonPhrase(httpRequest* agsReqHandler)
 char * httpRequest_Get_ContentType(httpRequest* agsReqHandler)
 {
     if(agsReqHandler != NULL){
-	http_t * requestHandler = (http_t*) &(aRequestStruct->requestHandler);
+	http_t * requestHandler = (http_t*) &(agsReqHandler->requestHandler);
         return engine->CreateScriptString(requestHandler->content_type);
     }
 }
