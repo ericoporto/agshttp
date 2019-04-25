@@ -38,9 +38,9 @@ httpRequest * update_httpRequest(httpRequest * aRequestStruct){
     aRequestStruct->ResponseSize = requestHandler->response_size;
     aRequestStruct->StatusCode = requestHandler->status_code;
     aRequestStruct->RequestState = requestHandler->status;
-    aRequestStruct->ResponseData = engine->CreateScriptString((char const*)requestHandler->response_data);
-    aRequestStruct->ReasonPhrase = engine->CreateScriptString(requestHandler->reason_phrase);
-    aRequestStruct->ContentType = engine->CreateScriptString(requestHandler->content_type);
+//    aRequestStruct->ResponseData = engine->CreateScriptString((char const*)requestHandler->response_data);
+//    aRequestStruct->ReasonPhrase = engine->CreateScriptString(requestHandler->reason_phrase);
+//    aRequestStruct->ContentType = engine->CreateScriptString(requestHandler->content_type);
     return aRequestStruct;
 }
 
@@ -141,6 +141,31 @@ void httpRequest_Release(httpRequest* agsReqHandler)
     }
 }
 
+
+char * httpRequest_Get_ResponseData(httpRequest* agsReqHandler)
+{
+    if(agsReqHandler != NULL){
+        return engine->CreateScriptString((char const*)requestHandler->response_data);
+    }
+}
+
+char * httpRequest_Get_ReasonPhrase(httpRequest* agsReqHandler)
+{
+    if(agsReqHandler != NULL){
+        return engine->CreateScriptString(requestHandler->reason_phrase);
+    }
+}
+
+char * httpRequest_Get_ContentType(httpRequest* agsReqHandler)
+{
+    if(agsReqHandler != NULL){
+        return engine->CreateScriptString(requestHandler->content_type);
+    }
+}
+
+
+
+
 //------------------------------------------------------------
 // Engine stuff
 //------------------------------------------------------------
@@ -153,6 +178,10 @@ void AGS_EngineStartup(IAGSEngine *lpEngine)
     engine->RegisterScriptFunction("agshttp::Post", (void*)&agshttp_Post);
     engine->RegisterScriptFunction("httpRequest::Process", (void*)&httpRequest_Process);
     engine->RegisterScriptFunction("httpRequest::Release", (void*)&httpRequest_Release);
+	
+    engine->RegisterScriptFunction("httpRequest::Get_ResponseData", (void*)&httpRequest_Get_ResponseData);
+    engine->RegisterScriptFunction("httpRequest::Get_ReasonPhrase", (void*)&httpRequest_Get_ReasonPhrase);
+    engine->RegisterScriptFunction("httpRequest::Get_ContentType", (void*)&httpRequest_Get_ContentType);
 
     engine->AddManagedObjectReader(agsHttpStructname, &httpROR);
 }
@@ -212,20 +241,25 @@ const char* scriptHeader =
 "  eHttpStatusFailed = 2\r\n"
 "};\r\n"
 "\r\n"
-"struct httpRequest {\r\n"
+"managed struct httpRequest {\r\n"
 "readonly int ResponseSize;\r\n"
 "readonly int StatusCode;\r\n"
 "readonly int RequestState;\r\n"
-"readonly String ResponseData;\r\n"
-"readonly String ReasonPhrase;\r\n"
-"readonly String ContentType;\r\n"
-"readonly void * requestHandler;\r\n"
 "\r\n"
 "/// Poll a request handler for updates\r\n"
 "import static int Process (httpRequest* agsReqHandler); // $AUTOCOMPLETESTATICONLY$\r\n"
 "\r\n"
 "/// Release a request handler\r\n"
 "import static void Release (httpRequest* agsReqHandler); // $AUTOCOMPLETESTATICONLY$\r\n"
+	
+"/// Get Response Data r\r\n"
+"import static String Get_ResponseData (httpRequest* agsReqHandler); \r\n"
+	
+"/// Get Reason Phrase\r\n"
+"import static String Get_ReasonPhrase (httpRequest* agsReqHandler); \r\n"
+	
+"/// Get Content Type \r\n"
+"import static String Get_ContentType (httpRequest* agsReqHandler); \r\n"
 "\r\n"
 "};\r\n"
 "\r\n"
