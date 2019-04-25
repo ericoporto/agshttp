@@ -212,7 +212,7 @@ const char* scriptHeader =
 "  eHttpStatusFailed = 2\r\n"
 "};\r\n"
 "\r\n"
-"managed struct httpRequest {\r\n"
+"struct httpRequest {\r\n"
 "readonly int ResponseSize;\r\n"
 "readonly int StatusCode;\r\n"
 "readonly int RequestState;\r\n"
