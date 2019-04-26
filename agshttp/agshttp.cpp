@@ -11,6 +11,7 @@
 #define HTTP_IMPLEMENTATION
 
 #include <stdio.h>
+#include <cstdint>
 #include "http.h" 
 #include <cstring>
 #define THIS_IS_THE_PLUGIN
