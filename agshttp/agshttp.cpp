@@ -142,7 +142,7 @@ void httpRequest_Release(httpRequest* agsReqHandler)
 }
 
 
-const char * httpRequest_Get_ResponseData(httpRequest* agsReqHandler)
+const char * httpRequest_get_ResponseData(httpRequest* agsReqHandler)
 {
     if(agsReqHandler != NULL){
 	http_t * requestHandler = (http_t*) &(agsReqHandler->requestHandler);
@@ -150,7 +150,7 @@ const char * httpRequest_Get_ResponseData(httpRequest* agsReqHandler)
     }
 }
 
-const char * httpRequest_Get_ReasonPhrase(httpRequest* agsReqHandler)
+const char * httpRequest_get_ReasonPhrase(httpRequest* agsReqHandler)
 {
     if(agsReqHandler != NULL){
 	http_t * requestHandler = (http_t*) &(agsReqHandler->requestHandler);
@@ -158,7 +158,7 @@ const char * httpRequest_Get_ReasonPhrase(httpRequest* agsReqHandler)
     }
 }
 
-const char * httpRequest_Get_ContentType(httpRequest* agsReqHandler)
+const char * httpRequest_get_ContentType(httpRequest* agsReqHandler)
 {
     if(agsReqHandler != NULL){
 	http_t * requestHandler = (http_t*) &(agsReqHandler->requestHandler);
@@ -182,9 +182,9 @@ void AGS_EngineStartup(IAGSEngine *lpEngine)
     engine->RegisterScriptFunction("httpRequest::Process", (void*)&httpRequest_Process);
     engine->RegisterScriptFunction("httpRequest::Release", (void*)&httpRequest_Release);
 	
-    engine->RegisterScriptFunction("httpRequest::get_ResponseData", reinterpret_cast<void *>(httpRequest_Get_ResponseData));
-    engine->RegisterScriptFunction("httpRequest::get_ReasonPhrase", reinterpret_cast<void *>(httpRequest_Get_ReasonPhrase));
-    engine->RegisterScriptFunction("httpRequest::get_ContentType", reinterpret_cast<void *>(httpRequest_Get_ContentType));
+    engine->RegisterScriptFunction("httpRequest::get_ResponseData", reinterpret_cast<void *>(httpRequest_get_ResponseData));
+    engine->RegisterScriptFunction("httpRequest::get_ReasonPhrase", reinterpret_cast<void *>(httpRequest_get_ReasonPhrase));
+    engine->RegisterScriptFunction("httpRequest::get_ContentType", reinterpret_cast<void *>(httpRequest_get_ContentType));
 
     engine->AddManagedObjectReader(agsHttpStructname, &httpROR);
 }
@@ -255,15 +255,12 @@ const char* scriptHeader =
 "\r\n"
 "/// Release a request handler\r\n"
 "import static void Release (httpRequest * httpRequestHandler); // $AUTOCOMPLETESTATICONLY$\r\n"
-	
 "/// Get Response Data r\r\n"
-"import static String get_ResponseData (httpRequest * httpRequestHandler); \r\n"
-	
+"import readonly attribute String ResponseData; \r\n"
 "/// Get Reason Phrase\r\n"
-"import static String get_ReasonPhrase (httpRequest * httpRequestHandler); \r\n"
-	
+"import readonly attribute String ReasonPhrase; \r\n"
 "/// Get Content Type \r\n"
-"import static String get_ContentType (httpRequest * httpRequestHandler); \r\n"
+"import readonly attribute String ContentType; \r\n"
 "\r\n"
 "};\r\n"
 "\r\n"
